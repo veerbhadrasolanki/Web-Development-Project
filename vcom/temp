@@ -1,0 +1,38 @@
+<?php
+
+ $conn = mysqli_connect("localhost", "root", "", "ecommerce")
+or die(mysqli_error($conn));
+
+
+ $useremail = mysqli_real_escape_string($conn, $_POST['email']);
+ $userpass = md5 (mysqli_real_escape_string($conn, $_POST['password']));
+ 
+ $myquery = "SELECT email , password FROM users WHERE email='$useremail' ";
+ 
+  $result = mysqli_query($conn, $myquery)
+  or die(mysqli_error($conn));
+  
+while ($row = mysqli_fetch_array($result)) {
+
+  
+        $check_email = $row['email'];
+        $check_password = $row['password'];
+    }
+    if ($check_email == $useremail && $userpass == $check_password) {
+        $message = "ok";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    
+    } else {
+        $message = "No";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+       
+    }
+    ?>
+	
+	
+	
+ if (isset($_POST['submit'])){
+	 
+	 
+	 $SESSION['semail']= $useremail;
+$SESSION['sid']= mysqli_insert_id($conn);
